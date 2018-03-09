@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>路线规划工具</title>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=DKp1C8CQhTncxFxCi9dYDSgfCDDMF1sb	"></script>
+</head>
+<body>
+<p id="p0">取点系统</p>
+<p><input type='button' value='开始' onclick='run();' /></p>
+<div style="width:50%;height:500px;border:1px solid gray;float:left;display:inline" id="map"  ></div>
+
+
+</body>
+</html>
+<script type="text/javascript">
+var map = new BMap.Map("allmap");
+//设置中心点坐标
+var point = new BMap.Point(123.412894,41.932245);
+
+//初始化地图
+/**
+ *地图类型：
+ *普通地图：BMAP_NORMAL_MAP
+ *卫星地图：BMAP_HYBRID_MAP
+ */
+var map = new BMap.Map("map",{mapType:BMAP_HYBRID_MAP,minZoom:16,maxZoom:20,enableMapClick: false}); //设置地图类型及最小最大级别
+//设置地图级别（1-18）
+map.centerAndZoom(point,16);
+//开启滚轮缩放地图
+//var points=new Array();             //声明一维数组         //先声明一维
+//       for(var i=0;i<5;i++){          //一维长度为5
+//          arr[i]=new Array(i);    //在声明二维
+//          for(var j=0;j<5;j++){      //二维长度为5
+//             arr[i][j]=i;
+//       }
+//}
+map.enableScrollWheelZoom();
+ map.disableDragging();
+//进行浏览器定位
+var geolocation = new BMap.Geolocation();
+//geolocation.getCurrentPosition(function(r){
+	// 定位成功事件
+	//if(this.getStatus() == BMAP_STATUS_SUCCESS){
+		//alert('您的位置：'+r.point.lng+','+r.point.lat);
+	//	var point = new BMap.Point(r.point.lng, +r.point.lat);
+	//}
+//},{enableHighAccuracy: true})
+window.run = function (){
+var polyline = new BMap.Polyline(
+  [
+  new BMap.Point(123.411457,41.93254),
+  new BMap.Point(123.413523, 41.933506),
+  new BMap.Point(123.418949, 41.933305),
+  //这里是
+//  new BMap.Point(e.point.lng, e.point.lat)
+  ], {strokeColor:"blue", strokeWeight:6, strokeOpacity:0.5});
+map.addOverlay(polyline);
+}
+var point = new BMap.Point(123.413756,41.933291);
+var marker = new BMap.Marker(point);        // 创建标注
+map.addOverlay(marker);
+var point1 = new BMap.Point(123.4188252,41.9333046);
+var marker1 = new BMap.Marker(point1);        // 创建标注
+map.addOverlay(marker1);
+
+//addEventListener--添加事件监听函数
+//click--点击事件获取经纬度
+
+//var point = new BMap.Point(e.point.lng , e.point.lat);
+
+     </script>

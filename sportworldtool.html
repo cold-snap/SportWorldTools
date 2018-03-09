@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>路线规划工具</title>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=	"></script>
+</head>
+<body>
+<p id="p0">取点系统</p>
+<p><input type='button' value='开始' onclick='run();' /></p>
+<div style="width:50%;height:500px;border:1px solid gray;float:left;display:inline" id="map"  ></div>
+<div style="float:left;display:inline">
+  <p id="p1">标记点1</p>
+  <p id="p2">标记点2</p>
+  <p id="p3">标记点3</p>
+  <p id="p4">标记点4</p>
+  <p id="p5">标记点5</p>
+  <p id="p6">标记点6</p>
+  <p id="p7">标记点7</p>
+  <p id="p8">标记点8</p>
+  <p id="p9">标记点9</p>
+  <p id="p10">标记点10</p>
+  <p id="p11">标记点11</p>
+  <p id="p12">标记点12</p>
+  <p id="p13">标记点13</p>
+</div>
+<div style="float:left;display:inline">
+  <p id="p14">标记点14</p>
+  <p id="p15">标记点15</p>
+  <p id="p16">标记点16</p>
+  <p id="p17">标记点17</p>
+<p id="p18">标记点18</p>
+<p id="p19">标记点19</p>
+<p id="p20">标记点20</p>
+<p id="p21">标记点21</p>
+<p id="p22">标记点22</p>
+<p id="p23">标记点23</p>
+<p id="p24">标记点24</p>
+<p id="p25">标记点25</p>
+<p id="p26">标记点26</p>
+</div>
+<div style="float:left;display:inline">
+<p id="p27">标记点27</p>
+<p id="p28">标记点28</p>
+<p id="p29">标记点29</p>
+<p id="p30">标记点30</p>
+<p id="p31">标记点31</p>
+<p id="p32">标记点32</p>
+<p id="p33">标记点33</p>
+<p id="p34">标记点34</p>
+<p id="p35">标记点35</p>
+<p id="p36">标记点36</p>
+<p id="p37">标记点37</p>
+<p id="p38">标记点38</p>
+<p id="p39">标记点39</p>
+</div>
+
+</body>
+</html>
+<script type="text/javascript">
+var map = new BMap.Map("allmap");
+//设置中心点坐标
+var point = new BMap.Point(123.412894,41.932245);
+
+//初始化地图
+/**
+ *地图类型：
+ *普通地图：BMAP_NORMAL_MAP
+ *卫星地图：BMAP_HYBRID_MAP
+ */
+var map = new BMap.Map("map",{mapType:BMAP_HYBRID_MAP,minZoom:16,maxZoom:20,enableMapClick: false}); //设置地图类型及最小最大级别
+//设置地图级别（1-18）
+map.centerAndZoom(point,16);
+//开启滚轮缩放地图
+//var points=new Array();             //声明一维数组         //先声明一维
+//       for(var i=0;i<5;i++){          //一维长度为5
+//          arr[i]=new Array(i);    //在声明二维
+//          for(var j=0;j<5;j++){      //二维长度为5
+//             arr[i][j]=i;
+//       }
+//}
+map.enableScrollWheelZoom();
+ map.disableDragging();
+//进行浏览器定位
+var geolocation = new BMap.Geolocation();
+//geolocation.getCurrentPosition(function(r){
+	// 定位成功事件
+	//if(this.getStatus() == BMAP_STATUS_SUCCESS){
+		//alert('您的位置：'+r.point.lng+','+r.point.lat);
+	//	var point = new BMap.Point(r.point.lng, +r.point.lat);
+	//}
+//},{enableHighAccuracy: true})
+window.run = function (){
+var polyline = new BMap.Polyline(
+  [
+  new BMap.Point(123.411457,41.93254),
+  new BMap.Point(123.413523, 41.933506),
+  new BMap.Point(123.418949, 41.933305),
+  //这里是
+//  new BMap.Point(e.point.lng, e.point.lat)
+  ], {strokeColor:"blue", strokeWeight:6, strokeOpacity:0.5});
+map.addOverlay(polyline);
+}
+var i = 1;
+var prolon;
+var prolat;
+//addEventListener--添加事件监听函数
+//click--点击事件获取经纬度
+map.addEventListener("click",function(e){
+
+    //prompt("鼠标单击地方的经纬度为：",e.point.lng + "," + e.point.lat);
+
+
+  //  points[i-1][0]=Number(e.point.lng);
+  //  points[i-1][1]=Number(e.point.lat);
+    //document.getElementById('p'+i).innerHTML= points[0][i-1] + "," + points[1][i-1];
+    document.getElementById('p'+i).innerHTML= e.point.lng + "," + e.point.lat;
+
+    var point = new BMap.Point(e.point.lng, e.point.lat);
+    var marker = new BMap.Marker(point);        // 创建标注
+    map.addOverlay(marker);
+/*    if (i>1)
+    {
+      var polyline = new BMap.Polyline(
+        [
+      new BMap.Point(prolon,prolat),
+       new BMap.Point(e.point.lng,e.point.lat),
+        //new BMap.Point(123.418949, 41.933305),
+      //  new BMap.Point(e.point.lng, e.point.lat)
+        ],
+       {strokeColor:"blue", strokeWeight:6, strokeOpacity:0.5});
+       map.addOverlay(polyline);
+    }
+*/
+    prolon=e.point.lng;
+    prolat=e.point.lat;
+    //}*/
+
+    i += 1;
+});
+var point = new BMap.Point(e.point.lng , e.point.lat);
+
+     </script>

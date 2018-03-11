@@ -1,4 +1,19 @@
 import math
+import time
+import subprocess
+def inputpoint(lon0,lat0):
+    '''
+    点击位置模拟
+    点击地球图标
+    输入经度
+    点击纬度
+    输入纬度
+    点击确认
+    点击黄框
+    半秒取一张截图 判断返回
+    结束
+    '''
+    return 0
 def drawline(lon1,lat1,lon2,lat2):
     '''lon1 = 123.418949
     lat1 = 41.933305
@@ -9,7 +24,7 @@ def drawline(lon1,lat1,lon2,lat2):
     b = lat1-lon1*a
     distance = getdistance(lon1,lat1,lon2,lat2)
     print("Distance:"+str(distance)+"\n")
-    pointnum = int(distance/10) #30厘米出一次位置,这里单位是m
+    pointnum = int(distance/8) #4米出一次位置,这里单位是m
     print("Pointnum:"+str(pointnum)+"\n")
     dx = (lon2-lon1)/pointnum
     dy = (lat2-lat1)/pointnum
@@ -20,7 +35,10 @@ def drawline(lon1,lat1,lon2,lat2):
         #print("Lon:"+str(x)+"\nLat:"+str(y)+"\n")
         print(str(x)+","+str(y)+"\n")
         i += 1
-    print(str(lon2)+","+str(lat2)+"\n")
+        time.sleep(2)
+    print(str(lon2)+","+str(lat2)+"\n")#发送命令
+    inputpoint(lon2,lat2)
+
 def getdistance(lon1,lat1,lon2,lat2):
     lon1 = math.radians(lon1)
     lat1 = math.radians(lat1)
@@ -39,6 +57,9 @@ if __name__=='__main__':
     Slat1=41.933305
     Elon2=000.000000
     Elat2=00.000000
+    order='adb devices' #获取连接设备
+    pi = subprocess.Popen(order,shell=True,stdout=subprocess.PIPE)
+    print(pi.stdout.read())#打印结果
     try:
         for line in open('E:\\addlist.txt'):
             #123.123456,42.123345
